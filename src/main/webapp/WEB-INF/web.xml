@@ -1,0 +1,50 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+
+  <display-name>Archetype Created Web Application</display-name>
+
+  <!--指定applicationContext.xml的位置-->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+  <!--配置spring监听器-->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+
+
+<!--
+这种方式太麻烦
+在我们上面创建的Servlet中，
+Servlet的配置信息都是在web.xml中完成的。
+如果，我们创建的Servlet非常多，
+就会导致web.xml中的配置非常臃肿，
+不便于管理。Servlet3.0为我们提供了注解支持，创建Servlet的时候。
+在这个Servlet类上面添加注解就可以完成Servlet的配置。
+Servlet3.0除了提供注解支持，还提供了以下新特性
+
+创建完成后，Servlet类上面会默认添加一个注解@WebServlet(name="Servlet3Demo") 。这个@WebServlet注解就是用来配置当前这个Servlet的。这个注解中常用的有两个属性：
+
+1. name属性： 相当于web.xml的 <servlet-name>；
+2. urlPatterns属性： 编写访问servlet的路径  类似于 <url-pattern>
+
+所以，我们需要手动在@WebServlet 注解中添加urlPatterns属性，来设置映射路径
+
+
+-->
+  <!--<servlet>
+    <servlet-name>HelloServlet</servlet-name>
+    <servlet-class>cn.web.HelloServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HelloServlet</servlet-name>
+    <url-pattern>/hello</url-pattern>
+  </servlet-mapping>-->
+
+
+</web-app>
