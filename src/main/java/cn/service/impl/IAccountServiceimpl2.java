@@ -2,6 +2,7 @@ package cn.service.impl;
 
 import cn.dao.IAccountDao;
 import cn.pojo.Account;
+import cn.pojo.user;
 import cn.service.IAccountService;
 
 public class IAccountServiceimpl2 implements IAccountService {
@@ -48,5 +49,10 @@ public class IAccountServiceimpl2 implements IAccountService {
     @Override
     public void saveAccount(Account account) {
         accountDao.saveAccount(account);
+    }
+
+    @Override
+    public user queryLogin(user u) {
+        return null;
     }
 }

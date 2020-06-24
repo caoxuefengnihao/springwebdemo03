@@ -46,5 +46,52 @@ Servlet3.0除了提供注解支持，还提供了以下新特性
     <url-pattern>/hello</url-pattern>
   </servlet-mapping>-->
 
+  <!--默认访问哪个页面 也就是初始页面-->
+  <!--
+  jsp执行流程  先把jsp翻译成java文件  再有tomcat执行
+  编码分类
+  设置jsp文件的编码（jsp文件中的pageEncoding属性） jsp 转 java
+  设置浏览器读取jsp文件的编码（jsp文件中的context属性）
+  jsp的页面元素
+  1 脚本Scriptlet
+    <%  里面可以写java代码 局部变量  %>
+    <%! 里面可以定义全局变量 方法 %>
+    <%=  输出代码  out.write()  %>
+
+    jsp内置对象 自带的 不需要new  也能使用的对象
+    out
+    pageContext
+    request
+    response
+    session
+    application
+    config
+    page
+    exception
+
+    jsp访问数据库
+
+  -->
+  <servlet>
+    <servlet-name>springmvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!--加载指定位置的springmvc的配置文件-->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:springmvc-servlet.xml</param-value>
+    </init-param>
+    <!--配置tomcat启动时初始化前端控制器-->
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>springmvc</servlet-name>
+    <!--控制器会拦截以全部请求 交给springmvc处理-->
+    <!-- 注意这里不能拦截使用‘/’拦截所有请求 会导致js等静态文件无法加载 -->
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>login.html</welcome-file>
+  </welcome-file-list>
 
 </web-app>

@@ -14,13 +14,39 @@
 <body>
 
     <div class="container text-center">
-        <form class="form-signin" action="hello">
+        <form class="form-signin" action="/show19.do">
             <h2 class="form-signin-heading">登录页面</h2>
             <input type="text"  name="username" class="form-control" placeholder="用户名" required autofocus>
             <input type="password"  name="password" class="form-control" placeholder="密码" required>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" >登录</button>
+            <button class="btn btn-lg btn-primary btn-block" type="reset">取消</button>
         </form>
     </div>
+
+<!--
+springMvc的解释
+-->
+    <div>
+        <form class="form-signin" action = "/show21.do">
+            学生<input class="form-control" name="username" type= "text" />
+            密码<input class="form-control" name="password" type= "text" />
+            家庭地址<input class="form-control" name="address.houseAddress" type= "text" />
+            学校地址<input class="form-control" name="address.schoolAddress" type= "text" />
+            爱好<input type="checkbox" name = "hobby" value="k"/>kkkkk
+                <input type="checkbox" name = "hobby" value="j"/>jjjjj
+                <input type="checkbox" name = "hobby" value="d"/>ddddd
+                <input type="checkbox" name = "hobby" value="c"/>ccccc
+            <button class="btn btn-lg btn-primary btn-block" type="submit" >登录</button>
+        </form>
+    </div>
+<div>
+
+    <a hrel="/show21">点击</a>
+
+</div>
+
+
+
 
 </body>
 </html>

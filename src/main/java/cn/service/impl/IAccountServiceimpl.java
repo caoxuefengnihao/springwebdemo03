@@ -2,6 +2,7 @@ package cn.service.impl;
 
 import cn.dao.IAccountDao;
 import cn.pojo.Account;
+import cn.pojo.user;
 import cn.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,5 +27,11 @@ public class IAccountServiceimpl implements IAccountService {
     @Override
     public void saveAccount(Account account) {
         iAccountDao.saveAccount(account);
+    }
+
+    @Override
+    public user queryLogin(user u) {
+        user use = iAccountDao.queryLogin(u);
+        return use;
     }
 }

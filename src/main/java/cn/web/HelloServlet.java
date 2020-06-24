@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 
 /*
@@ -60,6 +61,15 @@ public class HelloServlet extends HttpServlet {
         WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
         IHelloService helloServiceImpl = (IHelloService)webApplicationContext.getBean("helloServiceImpl");
         helloServiceImpl.sayHello();
+
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        if (password.equals("1")){
+        resp.sendRedirect("/success.html");
+        }
+
+
 
     }
 }
