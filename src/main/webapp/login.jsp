@@ -34,10 +34,8 @@
             password = cookie.getValue();
         }
     }
-
-
-
 %>
+<h1 class="form-signin">登录</h1>
 <div class="container text-center">
     <form class="form-signin" action="/demo06">
         <h2 class="form-signin-heading">登录页面</h2>
@@ -45,6 +43,17 @@
         <input type="password"  name="password" class="form-control" placeholder="密码" value="<%=password%>">
         <input type="checkbox"  name="remember" value="remember">记住账号和密码
         <button class="btn btn-lg btn-primary btn-block" type="submit" >登录</button>
+        <button class="btn btn-lg btn-primary btn-block" type="reset">取消</button>
+    </form>
+</div>
+
+<h1 class="form-signin">注册</h1>
+<div class="container text-center">
+    <form class="form-signin" action="/demo06">
+        <h2 class="form-signin-heading">注册页面</h2>
+        <input type="text"  name="username" class="form-control" placeholder="用户名">
+        <input type="password"  name="password" class="form-control" placeholder="密码">
+        <button class="btn btn-lg btn-primary btn-block" type="submit" >注册</button>
         <button class="btn btn-lg btn-primary btn-block" type="reset">取消</button>
     </form>
 </div>

@@ -8,10 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet(name = "cookieAndSessionDemo",urlPatterns = {"/demo06"})
@@ -44,12 +41,16 @@ public class CookieAndSessionDemo extends HttpServlet {
          *
          * 5案例实现 登录时记住用户名与密码  成功
          * 6 cookie删除
-         * Session技术
+         * Session技术 作用 为每个访问服务器的用户创建一个存储数据的容器 容器中的数据在多个请求之间共享
+         *  session 是服务器给每一个访问这个服务器的客户端用户创建一个容器 这个容器中存储的数据能够在多个request之间实现共享
+         *  而且 这个容器只属于当前这个用户
          *
-         *
-         *
-         *
-         *
+         * session容器创建
+         * request.getSession
+         * session常用的api
+         * 方法           使用示例            说明
+         * void setAttribute(String name,Object value)  session.setAttribute("LoginUser",user)  将一个对象与一个名称关联之后存到session中
+         * Object getAttribute(String name) session,getAttribute("LoginUser")   通过名字获取session中的数据
          */
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(SpringConfiguration.class);
         IAccountService accountService = (IAccountServiceimpl)annotationConfigApplicationContext.getBean("accountService");
@@ -87,5 +88,14 @@ public class CookieAndSessionDemo extends HttpServlet {
             }
             resp.sendRedirect("success.html");
         }
+        //第一次调用时创建session对象 再次调用时就去服务器中查找session
+        HttpSession session = req.getSession();
+        System.out.println(session.getId());
+        Cookie[] cookies = req.getCookies();
+        for (Cookie cookie : cookies) {
+            System.out.println(cookie.getName()+"--"+cookie.getValue());
+        }
+
+
     }
 }

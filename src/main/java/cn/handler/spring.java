@@ -126,11 +126,12 @@ public class spring {
 
     @RequestMapping(value="show28")
     public void test28(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        List<user> list = new ArrayList<user>();
+        ArrayList<user> list = new ArrayList<user>();
         for(int i = 0;i< 20;i++) {
             user user = new user();
             user.setUsername("zhangsan"+i);
             System.out.println(user);
+            list.add(user);
         }
         req.setAttribute("users",list);
         req.getRequestDispatcher("userList.jsp").forward(req,resp);

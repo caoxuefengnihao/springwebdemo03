@@ -91,7 +91,7 @@ Servlet3.0除了提供注解支持，还提供了以下新特性
   </servlet-mapping>
 
   <welcome-file-list>
-    <welcome-file>login.html</welcome-file>
+    <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
 
 </web-app>
