@@ -13,12 +13,39 @@
 
     <context:component-scan base-package="cn"></context:component-scan>
 
-    <!--配置视图解析器解析规则 -->
+    <!--配置视图解析器解析规则  指定去哪里查找视图 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--配置视图解析器的前缀：去哪个位置找视图 -->
         <property name="prefix" value="/WEB-INF/views/"></property>
         <!--配置视图解析器的后缀：找以.jsp为后缀的视图 -->
         <property name="suffix" value=".jsp"></property>
     </bean>
+
+    <!--配置注解驱动--><!--解决中文乱码问题-->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg index="0" value="utf-8"></constructor-arg>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <!--多个拦截器,顺序执行 -->
+        <mvc:interceptor>
+            <!--拦截所有请求-->
+            <mvc:mapping path="/**"/>
+            <bean class="cn.interceptor.MyInterceptor1"></bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <!--拦截所有请求-->
+            <mvc:mapping path="/**"/>
+            <bean class="cn.interceptor.MyInterceptor2"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
 
 </beans>

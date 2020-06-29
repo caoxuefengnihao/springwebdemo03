@@ -86,11 +86,14 @@ public class CookieAndSessionDemo extends HttpServlet {
                 resp.addCookie(cookie);
                 resp.addCookie(cookie2);
             }
+            //第一次调用时创建session对象 再次调用时就去服务器中查找session
+            HttpSession session = req.getSession();
+            System.out.println(session.getId());
+            session.setAttribute("username",username);
+            session.setAttribute("password",passwrod);
             resp.sendRedirect("success.html");
         }
-        //第一次调用时创建session对象 再次调用时就去服务器中查找session
-        HttpSession session = req.getSession();
-        System.out.println(session.getId());
+
         Cookie[] cookies = req.getCookies();
         for (Cookie cookie : cookies) {
             System.out.println(cookie.getName()+"--"+cookie.getValue());
