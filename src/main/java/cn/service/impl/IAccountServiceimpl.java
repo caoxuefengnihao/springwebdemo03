@@ -34,4 +34,10 @@ public class IAccountServiceimpl implements IAccountService {
         user use = iAccountDao.queryLogin(u);
         return use;
     }
+
+    @Override
+    public int zuce(user u) {
+        int zuce = iAccountDao.zuce(u);
+        return zuce;
+    }
 }

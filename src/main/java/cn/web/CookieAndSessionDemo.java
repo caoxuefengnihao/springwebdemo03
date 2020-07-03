@@ -91,7 +91,7 @@ public class CookieAndSessionDemo extends HttpServlet {
             System.out.println(session.getId());
             session.setAttribute("username",username);
             session.setAttribute("password",passwrod);
-            resp.sendRedirect("success.html");
+            resp.sendRedirect("hello.jsp");
         }
 
         Cookie[] cookies = req.getCookies();

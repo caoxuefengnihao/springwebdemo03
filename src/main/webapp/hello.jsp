@@ -11,12 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-
-<%
-    String s = (String)request.getAttribute("msg");
-%>
-<h1><%= s%></h1>
-
+<h1>让你登陆你就登陆 咋这么听话呢 你咋这么牛逼呢</h1>
 
 </body>
 </html>

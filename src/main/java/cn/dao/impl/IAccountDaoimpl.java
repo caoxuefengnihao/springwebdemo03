@@ -43,10 +43,17 @@ public class IAccountDaoimpl implements IAccountDao {
             preparedStatement.setString(1,u.getUsername());
             preparedStatement.setString(2,u.getPassword());
             ResultSet resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()){
-                String string1 = resultSet.getString(1);
-                String string2 = resultSet.getString(2);
-                return new user(string1,string2);
+                if (resultSet.isBeforeFirst()){
+                    return null;
+                }
+                else{
+                    String string1 = resultSet.getString(1);
+                    String string2 = resultSet.getString(2);
+                    System.out.println(string1+string2+"111111111");
+                    return new user(string1,string2);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,4 +61,33 @@ public class IAccountDaoimpl implements IAccountDao {
         System.out.println("保存了账户");
         return null;
     }
+
+    @Override
+    public int zuce(user u) {
+        boolean execute = false;
+
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "insert into mima values (?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,u.getUsername());
+            preparedStatement.setString(2,u.getPassword());
+            execute = preparedStatement.execute();
+            System.out.println(execute);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("保存了账户");
+        if(execute == false){
+            return 0;
+
+        }else {
+            return  1;
+        }
+
+
+
+    }
+
+
 }

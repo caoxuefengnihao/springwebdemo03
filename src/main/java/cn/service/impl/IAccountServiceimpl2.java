@@ -55,4 +55,9 @@ public class IAccountServiceimpl2 implements IAccountService {
     public user queryLogin(user u) {
         return null;
     }
+
+    @Override
+    public int zuce(user u) {
+        return 0;
+    }
 }

@@ -2,6 +2,7 @@ package cn.handler;
 
 
 import cn.pojo.user;
+import cn.service.IAccountService;
 import cn.service.IHelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,6 +26,9 @@ public class spring {
     @Autowired
     @Qualifier("helloServiceImpl")
     IHelloService iHelloService;
+    @Autowired
+    @Qualifier("accountService")
+    IAccountService iAccountService;
 
     /**
      * @RequestMapping("/show1.do"): 使得请求的url可以映射到指定的目标方法上
@@ -34,11 +38,40 @@ public class spring {
     public ModelAndView test1(){
         ModelAndView mv = new ModelAndView();
         //设置要显示的页面：视图
-        mv.setViewName("/WEB-INF/views/hello.jsp");
+        mv.setViewName("hello");
         //添加要显示的数据:数据是存在request域中
         mv.addObject("msg","这是springmvc的第一个程序！");
         return mv;
     }
+
+    @RequestMapping("show2")
+    public ModelAndView test2(ModelAndView mv,@RequestParam String username,@RequestParam String password){
+        user user = iAccountService.queryLogin(new user(username, password));
+        System.out.println(username+"---------"+password);
+        if(user == null){
+            int zuce = iAccountService.zuce(new user(username, password));
+            System.out.println(zuce);
+            if(zuce == 0){
+                //设置要显示的页面：视图
+                mv.setViewName("hello");
+                //添加要显示的数据:数据是存在request域中
+                mv.addObject("msg","注册成功");
+            }else {
+                //设置要显示的页面：视图
+                mv.setViewName("hello");
+                //添加要显示的数据:数据是存在request域中
+                mv.addObject("msg","注册失败");
+            }
+            return mv;
+        }else {
+            //设置要显示的页面：视图
+            mv.setViewName("hello");
+            //添加要显示的数据:数据是存在request域中
+            mv.addObject("msg","你已经注册");
+            return mv;
+        }
+    }
+
 
     /**
      * show18.do 可以简写成 show18
