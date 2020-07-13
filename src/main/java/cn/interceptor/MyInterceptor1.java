@@ -5,6 +5,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class MyInterceptor1 implements HandlerInterceptor {
 
@@ -20,9 +21,15 @@ public class MyInterceptor1 implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("MyInterceptor1，预处理回调方法正在执行");
-        return true;
+        HttpSession session = request.getSession();
+        String username = (String)session.getAttribute("username");
+        if(username != null){
+            return true;
+        }else{
+            response.sendRedirect("login.jsp");
+            return false;
+        }
     }
-
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
