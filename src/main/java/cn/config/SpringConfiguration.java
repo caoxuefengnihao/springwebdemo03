@@ -7,7 +7,8 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan("cn")
-@Import({JdbcConfiguration.class})
+@Import({JdbcConfiguration.class,HiveJbdcConfig.class})
+
 public class SpringConfiguration {
 
 

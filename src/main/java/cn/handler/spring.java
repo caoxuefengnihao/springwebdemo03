@@ -4,21 +4,19 @@ package cn.handler;
 import cn.pojo.user;
 import cn.service.IAccountService;
 import cn.service.IHelloService;
+import cn.service.hiveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 public class spring {
 
@@ -29,6 +27,10 @@ public class spring {
     @Autowired
     @Qualifier("accountService")
     IAccountService iAccountService;
+
+    @Autowired
+    @Qualifier("hiveServiceImpl")
+    hiveService hiveSer;
 
     /**
      * @RequestMapping("/show1.do"): 使得请求的url可以映射到指定的目标方法上
@@ -290,4 +292,12 @@ public class spring {
      * Ajax的原理与JavaScript的实现
      *
      */
+
+
+    @RequestMapping(value="show36")
+    public String test36() throws SQLException {
+        hiveSer.query();
+        System.out.println("自定义处理器正在执行！！");
+        return "hello";
+    }
 }
