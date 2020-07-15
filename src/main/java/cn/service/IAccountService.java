@@ -7,6 +7,7 @@ import cn.pojo.user;
 public interface IAccountService {
     void set(IAccountDao accountDao);
     void saveAccount(Account account);
+    void saveAccount();
     user queryLogin(user u);
     int zuce(user u);
 }

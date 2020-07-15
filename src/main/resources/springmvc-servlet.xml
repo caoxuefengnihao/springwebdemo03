@@ -36,7 +36,7 @@
         <!--多个拦截器,顺序执行 -->
         <mvc:interceptor>
             <!--拦截所有请求-->
-            <mvc:mapping path="/**"/>
+            <mvc:mapping path="/handler/**"/>
             <bean class="cn.interceptor.MyInterceptor1"></bean>
         </mvc:interceptor>
         <mvc:interceptor>

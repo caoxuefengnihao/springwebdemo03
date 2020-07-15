@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
 
 import java.sql.*;
 @Configuration
@@ -21,6 +22,7 @@ public class HiveJbdcConfig {
 
 
     @Bean("getConnect")
+    @Scope(value="prototype")
     public Connection getConnect(){
         try {
             Class.forName(driverClassName);

@@ -30,6 +30,11 @@ public class IAccountServiceimpl implements IAccountService {
     }
 
     @Override
+    public void saveAccount() {
+        iAccountDao.saveAccount();
+    }
+
+    @Override
     public user queryLogin(user u) {
         user use = iAccountDao.queryLogin(u);
         return use;

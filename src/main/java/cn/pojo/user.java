@@ -1,7 +1,11 @@
 package cn.pojo;
 
-import java.util.Arrays;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+@Component("user")
+@Scope(value="prototype")
 public class user {
 
     private String username;

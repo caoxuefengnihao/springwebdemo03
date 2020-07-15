@@ -13,6 +13,8 @@ import java.io.IOException;
 
 @WebServlet(name = "cookieAndSessionDemo",urlPatterns = {"/demo06"})
 public class CookieAndSessionDemo extends HttpServlet {
+
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req,resp);
@@ -70,7 +72,6 @@ public class CookieAndSessionDemo extends HttpServlet {
         String username = req.getParameter("username");
         String passwrod = req.getParameter("password");
 
-
         user user = accountService.queryLogin(new user(username,passwrod));
         if(user==null){
             resp.getWriter().write("fail");
@@ -98,7 +99,6 @@ public class CookieAndSessionDemo extends HttpServlet {
         for (Cookie cookie : cookies) {
             System.out.println(cookie.getName()+"--"+cookie.getValue());
         }
-
-
+        System.out.println(req.getParameter("sb"));
     }
 }

@@ -35,6 +35,11 @@ public class IAccountDaoimpl implements IAccountDao {
     }
 
     @Override
+    public void saveAccount() {
+        System.out.println("保存了账户");
+    }
+
+    @Override
     public user queryLogin(user u) {
         try {
             Connection connection = dataSource.getConnection();

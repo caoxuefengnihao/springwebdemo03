@@ -22,6 +22,7 @@ public class Client {
          *  上面这三个注解都是衍生注解 他们的作用及属性都是一模一样的 只不过他们提供了更加明确的
          *  语义化
          *
+         * @Scope
          *
          * 依赖注入相关的
          * @Autowired 按照类型注入 如果有多个类型匹配时 将对象的变量名作为id 去容器中查找并注入 找不到就报错
@@ -54,6 +55,77 @@ public class Client {
          *  value[] 由于指定其他配置类的字节码
          *
          *
+         * AOP概述 什么是AOP 面向切面编程
+         * 简单的来说它就是把我们程序重复的代码抽取出来 在需要执行的时候 使用动态代理 在不改源码的基础上 对我们已有的方法进行增强
+         * AOP的作用和优势
+         * 作用 在程序运行期间 不修改源码对已有的方法进行增强
+         * 优势 减少重复代码 提高开发效率 方便维护
+         *
+         * AOP中的相关术语
+         * Joinpoint（连接点） 所谓的连接点是指那些被拦截到的点 在spring中 这些点指的是方法 欣慰spring只支持方法类型的连接点
+         * Pointcut（切入点） 所谓的切入点是指我们要对那些Joinpoint进行拦截的定义
+         * Advice（通知/增强） 所谓的通知是指拦截到Joinpoint之后所要做的事情就是通知
+         *  通知的类型 前置通知 后置通知 异常通知 最终通知 环绕通知
+         * Target 目标对象 代理的目标对象
+         * Weaving 织入
+         *  是指把增强应用到目标对象来创建新的代理对象的过程
+         * Proxy 代理 一个类被AOP织入增强后 就产生一个结果代理类
+         * Aspect 切面 是切入点和通知的结合
+         *
+         * AspectJ切入点表达式总结
+         * execution  匹配方法的执行（常用）
+         * 语法表达式 execution([方法修饰符 例如public] 返回值类型 包名.类名.方法名(参数))
+         * 全匹配方式
+         * execution(public void cn.service.impl.IAccountServiceimpl.saveAccount(..))
+         * 访问修饰符可以省略
+         * execution(void cn.service.impl.IAccountServiceimpl.saveAccount(..))
+         * 返回值类型可以使用* 表示返回任意类型
+         * execution(* cn.service.impl.IAccountServiceimpl.saveAccount(..))
+         * 包名可以用* 表示任意包 但是有几级包 就要写几个*
+         * execution(* cn.service.impl.IAccountServiceimpl.saveAccount(..)) 有三级包 要写三个*
+         * execution(* *.*.*.IAccountServiceimpl.saveAccount(..))
+         * 使用 .. 来表示当前的包及其子包
+         *
+         * 类名可以用 * 表示 任意类
+         * execution(* *.*.*.*.saveAccount(..))
+         * 方法名也可以用 * 表示 表示任意方法
+         * execution(* *.*.*.*.*(..))
+         * 参数列表也可以用 * 表示 表示任意参数 但是必须有参数
+         * execution(* *.*.*.*.*(*))
+         * 参数列表也可以用 .. 表示 表示任意参数 有无参数都行
+         * execution(* *.*.*.*.*(..))
+         * 全通配方式
+         * * *..*.*(..)
+         * 注解实现AOP 相关注解解释
+         * 1 在通知类上使用@Aspect 注解声明为切面类
+         * @Before 作用 把当前方法看成是前置通知 属性 value 用于指定切入点表达式
+         * 还可以指定切入点表达式的引用
+         * @AfterReturning 把当前方法看成是后置通知
+         * 属性 value 用于指定切入点表达式 还可以指定切入点表达式的引用
+         * @AfterThrowing 帮当前方法看成异常通知
+         * 属性 value 用于指定切入点表达式 还可以指定切入点表达式的引用
+         * @After 把当前方法看成是最终通知
+         * 属性 value 用于指定切入点表达式 还可以指定切入点表达式的引用
+         * 重点 环绕通知的注解配置
+         * @Around 把当前方法看成是环绕通知
+         * 属性 value 用于指定切入点表达式 还可以指定切入点表达式的引用
+         *
+         * spring框架为我们提供了一个接口 该接口可以作为环绕通知的方法参数来使用
+         * ProceedingJoinPoint 当环绕通知执行是 spring框架会为我们注入该接口的实现类
+         * 他有一个方法 proceed() 就相当于invoke 明确业务层方法调用
+         * spring的环绕通知
+         * 他是spring为我们提供的一种可以在代码中手动控制增强方法何时执行的方式
+         *
+         * 切入点表达式注解
+         * @Pointcut 作用指定切入点表达式 属性 value 指定表达式的内容
+         *
+         *
+         *
+         * 看下面的例子
+         * 在业务层方法执行的前后 加入日志的输出   目前没成功
+         *
+         *
+         *
          */
       /*  ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         IAccountService accountService =(IAccountService) ac.getBean("accountService");
@@ -61,8 +133,7 @@ public class Client {
 
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(SpringConfiguration.class);
         Account pojo = (Account)annotationConfigApplicationContext.getBean("pojo");
-        IAccountService accountService = (IAccountServiceimpl)annotationConfigApplicationContext.getBean("accountService");
+        IAccountService accountService = (IAccountService)annotationConfigApplicationContext.getBean("accountService");
         accountService.saveAccount(pojo);
-
     }
 }

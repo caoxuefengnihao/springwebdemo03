@@ -12,15 +12,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 @Controller
+@RequestMapping("handler")
 public class spring {
-
-
+    @Autowired
+    @Qualifier("user")
+    user u;
     @Autowired
     @Qualifier("helloServiceImpl")
     IHelloService iHelloService;
@@ -73,6 +77,43 @@ public class spring {
             return mv;
         }
     }
+
+    @RequestMapping("show3")
+    public void test3(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String username = req.getParameter("username");
+        String passwrod = req.getParameter("password");
+        u.setUsername(username);
+        u.setPassword(passwrod);
+        user user = iAccountService.queryLogin(u);
+        if(user==null){
+            resp.getWriter().write("fail");
+        }else{
+            //登录成功，在用户勾选记住用户名和密码的情况下使用cookie记住用户名和密码
+            String remember = req.getParameter("remember");
+            if("remember".equals(remember)){
+                //生成cookie信息
+                Cookie cookie = new Cookie("username",username);
+                Cookie cookie2 = new Cookie("password",passwrod);
+                cookie.setMaxAge(60*60);
+                cookie2.setMaxAge(60*60);
+                resp.addCookie(cookie);
+                resp.addCookie(cookie2);
+            }
+            //第一次调用时创建session对象 再次调用时就去服务器中查找session
+            HttpSession session = req.getSession();
+            System.out.println(session.getId());
+            session.setAttribute("username",username);
+            session.setAttribute("password",passwrod);
+            resp.sendRedirect("../success.html");
+        }
+
+        Cookie[] cookies = req.getCookies();
+        for (Cookie cookie : cookies) {
+            System.out.println(cookie.getName()+"--"+cookie.getValue());
+        }
+        System.out.println(req.getParameter("sb"));
+    }
+
 
 
     /**
@@ -151,7 +192,7 @@ public class spring {
      */
     //todo Cookie注解实例
     @RequestMapping("show17")
-    public ModelAndView test17(@CookieValue("JSESSIONID") String jsessionid){
+    public ModelAndView test17(@CookieValue("username") String jsessionid){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("hello");
         modelAndView.addObject("msg",jsessionid);

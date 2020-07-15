@@ -26,8 +26,14 @@ public class MyInterceptor1 implements HandlerInterceptor {
         if(username != null){
             return true;
         }else{
-            response.sendRedirect("login.jsp");
-            return false;
+
+            if(request.getRequestURI().equals("/handler/show3.do")){
+                return true;
+            }else{
+                System.out.println(request.getRequestURI());
+                response.sendRedirect("../login.jsp");
+                return false;
+            }
         }
     }
     @Override

@@ -52,6 +52,11 @@ public class IAccountServiceimpl2 implements IAccountService {
     }
 
     @Override
+    public void saveAccount() {
+
+    }
+
+    @Override
     public user queryLogin(user u) {
         return null;
     }

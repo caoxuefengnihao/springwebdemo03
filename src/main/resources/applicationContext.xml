@@ -2,17 +2,37 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 <!-- 加载外部资源文件 -->
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!--<context:property-placeholder location="classpath:jdbc.properties"/>-->
+
 
     <!-- 配置注解扫描的包：声明到指定的包下去进行扫描，如果发现类上有对应的注解，将其装配到容器中 -->
-    <context:component-scan base-package="cn"></context:component-scan>
+    <!--<context:component-scan base-package="cn"></context:component-scan>-->
 
-
+   <!-- <bean id="logger" class = "cn.pojo.Logger"></bean>
+    &lt;!&ndash; 配置AOP &ndash;&gt;
+    <aop:config>
+        &lt;!&ndash; 配置切面
+            id：切面的唯一标识
+            ref:引用通知类
+         &ndash;&gt;
+        <aop:aspect id="logAdvice" ref="logger">
+            &lt;!&ndash; 配置前置通知
+                    method:配置通知方法（即具体进行增强的方法）
+                    pointcut:配置AspectJ表达式，即将通知增强到哪个方法
+                    execution:使用AspectJ的切入点表达式
+                            execution(修饰符 返回值类型 包名.类名.方法名(参数列表))
+             &ndash;&gt;
+            <aop:before method="printLog" pointcut="execution(public void cn.service.impl.IAccountServiceimpl.saveAccount(..))"/>
+        </aop:aspect>
+    </aop:config>-->
 </beans>
