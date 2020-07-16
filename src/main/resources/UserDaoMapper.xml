@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+   mapper标签:配置各类声明
+   namespace：名称空间，由于映射文件可能有多个，为了防止crud语句的唯一标识被重复，需要设置空间名称。
+   基于动态方式 namespace 必须改成UserMapper的全路径
+ -->
+
+<mapper namespace="cn.mapper.UserMapper">
+    <!--
+        select:查询的statement（声明），用来编写查询语句
+        id:语句的唯一标识
+        resultType：配置返回的结果集类型 结果集对应的一定是pojo的全限定类型
+        parameterType：传递的参数类型，可以省略
+    -->
+
+
+    <resultMap id="userResultMap" type="cn.JavaBean.User" autoMapping="true">
+        <!--配置主键映射关系-->
+        <id column="id" property="id"></id>
+        <!--配置用户名的映射关系-->
+        <result column="user_name" property="userName"></result>
+    </resultMap>
+
+
+    <select id="queryUserById" resultMap="userResultMap">
+        select *,user_name as userName from tb_user where id = #{id}
+    </select>
+    <select id = "queryUsersLikeUserName" resultMap="userResultMap">
+
+        select * from tb_user where sex = 1
+        <!--
+           if标签：用来进行判断
+              test属性：编写ognl表达式
+         -->
+        <if test="userName!=null and userName.trim()!=''">
+            and user_name like '%' #{userName} '%'
+        </if>
+    </select>
+
+    <select id="queryUserListByUserNameOrAge" resultMap="userResultMap">
+        select * from tb_user where sex = 1
+        <choose>
+            <when test="userName!=null and userName.trim()!=''">
+                and user_name like '%' #{userName} '%'
+            </when>
+            <when test="age!=null">
+                and age = #{age}
+            </when>
+            <otherwise>
+                and user_name = "zhangsan"
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id ="queryUserListByUserNameandAge" resultMap="userResultMap">
+
+        select * from tb_user
+        <where>
+            <if test="userName!=null and userName.trim()!=''">
+                and user_name like '%' #{userName} '%'
+            </if>
+            <if test="age != null">
+                and age = #{age}
+            </if>
+        </where>
+    </select>
+
+
+
+
+</mapper>
+

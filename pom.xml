@@ -120,12 +120,20 @@
       <artifactId>spring-aspects</artifactId>
       <version>5.0.6.RELEASE</version>
     </dependency>
-<!--    &lt;!&ndash; spring aop支持 &ndash;&gt;
+
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-aop</artifactId>
-      <version>5.0.6.RELEASE</version>
-    </dependency>-->
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>3.4.6</version>
+    </dependency>
+
+
+    <!--    &lt;!&ndash; spring aop支持 &ndash;&gt;
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-aop</artifactId>
+          <version>5.0.6.RELEASE</version>
+        </dependency>-->
 
   </dependencies>
 
