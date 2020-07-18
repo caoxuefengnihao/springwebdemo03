@@ -2,6 +2,8 @@ package cn.handler;
 
 
 import cn.JavaBean.User;
+import cn.pojo.Pages;
+import cn.pojo.stu;
 import cn.pojo.user;
 import cn.service.IAccountService;
 import cn.service.IHelloService;
@@ -42,6 +44,9 @@ public class spring {
     @Autowired
     @Qualifier("UserServiceImpl")
     UserService userService;
+    @Autowired
+    @Qualifier("pages")
+    Pages pages;
 
     /**
      * @RequestMapping("/show1.do"): 使得请求的url可以映射到指定的目标方法上
@@ -111,7 +116,7 @@ public class spring {
             System.out.println(session.getId());
             session.setAttribute("username",username);
             session.setAttribute("password",passwrod);
-            resp.sendRedirect("../users.jsp");
+            resp.sendRedirect("/handler/show39.do");
         }
 
         Cookie[] cookies = req.getCookies();
@@ -357,5 +362,40 @@ public class spring {
        User users = userService.queryById(1l);
         System.out.println(users);
         return "hello";
+    }
+    @RequestMapping(value="show38")
+    public String test38() throws SQLException {
+        int i = userService.queryTotalCount("stu");
+        System.out.println(i);
+        return "hello";
+    }
+
+    @RequestMapping("show39")
+    public ModelAndView  test39(){
+        ModelAndView modelAndView = new ModelAndView("Pages");
+        int totalCount = userService.queryTotalCount("stu");
+        pages.setTotalCount(totalCount);
+        int totalPage = pages.getTotalCount()%pages.getPageSize() == 0?pages.getTotalCount()/pages.getPageSize() : pages.getTotalCount()/pages.getPageSize() +1;
+        pages.setTotalPage(totalPage);
+        System.out.println(pages);
+        List<stu> stus = userService.queryPagesListService(pages.getCurrentPage(), pages.getPageSize());
+        pages.setList(stus);
+        modelAndView.addObject("p",pages);
+        return modelAndView;
+    }
+
+    @RequestMapping("show40")
+    public ModelAndView test40(@RequestParam("currentPage")String currentPage){
+        ModelAndView modelAndView = new ModelAndView("Pages");
+        int totalCount = userService.queryTotalCount("stu");
+        pages.setCurrentPage(Integer.parseInt(currentPage));
+        pages.setTotalCount(totalCount);
+        int totalPage = pages.getTotalCount()%pages.getPageSize() == 0?pages.getTotalCount()/pages.getPageSize() : pages.getTotalCount()/pages.getPageSize() +1;
+        pages.setTotalPage(totalPage);
+        List<stu> stus = userService.queryPagesListService(pages.getCurrentPage(), pages.getPageSize());
+        pages.setList(stus);
+        System.out.println(pages);
+        modelAndView.addObject("p",pages);
+        return modelAndView;
     }
 }

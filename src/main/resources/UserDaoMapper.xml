@@ -68,7 +68,13 @@
         </where>
     </select>
 
+    <select id = "queryTotalCount" resultType="java.lang.Integer">
+        select count(1) from ${tableName};
+    </select>
 
+    <select id = "queryPagesList" resultType="cn.pojo.stu">
+        select * from stu limit #{currentPage},#{pageSize};
+    </select>
 
 
 </mapper>

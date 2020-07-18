@@ -1,6 +1,7 @@
 package cn.mapper;
 
 import cn.JavaBean.User;
+import cn.pojo.stu;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -47,5 +48,14 @@ public interface UserMapper {
 
     List<User> queryUserListByUserNameOrAge(@Param("userName")String userName,@Param("age")Integer age);
     List<User> queryUserListByUserNameandAge(@Param("userName")String userName,@Param("age")Integer age);
+
+
+    int queryTotalCount(@Param("tableName") String tableName);
+    List<stu> queryPagesList(@Param("currentPage") int currentPage,@Param("pageSize") int pageSize);
+
+
+
+
+
 
 }
