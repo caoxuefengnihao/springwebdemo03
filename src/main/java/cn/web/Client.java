@@ -122,11 +122,32 @@ public class Client {
          *
          *
          * 看下面的例子
-         * 在业务层方法执行的前后 加入日志的输出   目前没成功
+         * 在业务层方法执行的前后 加入日志的输出
+         */
+        /**
+         * spring 与 mybatis的整合
+         * mybatis可以操作数据库 其实就是通过SQLSessionFactory来获取 SQLSession 然后通过SQLSession
+         * 来操作数据库 而之前的SQLSessionFactory都是我们手动初始化出来的 而所谓的spring整合mybatis其实就是将
+         * SqlSessionFactory交给spring 的ioc 容器进行初始化
+         *  mybatis 和 spring整合 包提供了一个SQLSessionFactoryBean 该对象是一个工厂 bean 实现了 FactoryBean
+         *  可以通过getObject方法返回来一个SQLSessionFactory
+         *
+         *
+         *
+         *
+         *
          *
          *
          *
          */
+
+
+
+
+
+
+
+
       /*  ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         IAccountService accountService =(IAccountService) ac.getBean("accountService");
         accountService.saveAccount();*/

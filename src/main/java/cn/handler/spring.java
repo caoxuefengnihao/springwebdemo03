@@ -1,9 +1,11 @@
 package cn.handler;
 
 
+import cn.JavaBean.User;
 import cn.pojo.user;
 import cn.service.IAccountService;
 import cn.service.IHelloService;
+import cn.service.UserService;
 import cn.service.hiveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,6 +21,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("handler")
 public class spring {
@@ -35,6 +39,9 @@ public class spring {
     @Autowired
     @Qualifier("hiveServiceImpl")
     hiveService hiveSer;
+    @Autowired
+    @Qualifier("UserServiceImpl")
+    UserService userService;
 
     /**
      * @RequestMapping("/show1.do"): 使得请求的url可以映射到指定的目标方法上
@@ -104,7 +111,7 @@ public class spring {
             System.out.println(session.getId());
             session.setAttribute("username",username);
             session.setAttribute("password",passwrod);
-            resp.sendRedirect("../success.html");
+            resp.sendRedirect("../users.jsp");
         }
 
         Cookie[] cookies = req.getCookies();
@@ -339,6 +346,16 @@ public class spring {
     public String test36() throws SQLException {
         hiveSer.query();
         System.out.println("自定义处理器正在执行！！");
+        return "hello";
+    }
+
+
+
+
+    @RequestMapping(value="show37")
+    public String test37() throws SQLException {
+       User users = userService.queryById(1l);
+        System.out.println(users);
         return "hello";
     }
 }

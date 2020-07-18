@@ -13,7 +13,9 @@ import java.util.List;
 
 public class MybatisTest {
 
+
     public static void main(String[] args) throws IOException {
+
         //获取全局配置文件输入流
         InputStream resourceAsStream = Resources.getResourceAsStream("mybatis-config.xml");
         //加载全局配置文件
