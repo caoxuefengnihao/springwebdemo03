@@ -152,6 +152,10 @@ public class spring {
     /**
      *
      * 通过@RequestParam("username" defaultParam 为默认值 required 为是否这个参数一定有值)来获取前段form表单传过来的参数
+     * 前提条件
+     *  由于spring的RequestParam注解接收的参数是来自于requestHeader中，即请求头，也就是在url中，
+     *  格式为xxx?username=123&password=456，而RequestBody注解接收的参数则是来自于requestBody中，即请求体中。
+     *  因此综上所述，如果为get请求时，后台接收参数的注解应该为RequestParam，如果为post请求时，则后台接收参数的注解就是为RequestBody
      * @param name
      * @param password
      * @return

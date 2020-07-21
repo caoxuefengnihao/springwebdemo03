@@ -5,14 +5,27 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+
 import java.io.InputStream;
+import java.util.Properties;
 
 @Configuration
 @ComponentScan("cn")
 @Import({JdbcConfiguration.class,HiveJbdcConfig.class})
 @EnableAspectJAutoProxy//开启AOP的注解扫描
+@PropertySource({"classpath:mail.properties"})
 public class SpringConfiguration {
+
+    String username;
+    String password;
+    String host;
+
+
+
+
 
 
     /**
@@ -31,5 +44,20 @@ public class SpringConfiguration {
         //获取SQLSession
         SqlSession sqlSession = build.openSession();
         return sqlSession;
+    }
+
+
+    @Bean("JavaMailSenderImpl")
+    public JavaMailSenderImpl createMail(){
+        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+        javaMailSender.setHost("smtp.163.com");
+        javaMailSender.setUsername("15904920415@163.com");
+        javaMailSender.setPassword("cxf19940930cxf");
+        javaMailSender.setDefaultEncoding("utf-8");
+        Properties properties = new Properties();
+        properties.setProperty("mail.smtp.auth","true");
+        properties.setProperty("mail.smtp.ssl.enable","true");
+        javaMailSender.setJavaMailProperties(properties);
+        return javaMailSender;
     }
 }

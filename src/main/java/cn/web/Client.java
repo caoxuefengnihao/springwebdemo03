@@ -4,7 +4,6 @@ package cn.web;
 import cn.config.SpringConfiguration;
 import cn.pojo.Account;
 import cn.service.IAccountService;
-import cn.service.impl.IAccountServiceimpl;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Client {
@@ -162,13 +161,44 @@ public class Client {
          */
 
 
+        /**
+         * Thymeleaf 相关简介  他可以完全替代jsp 相较于其他的模板引擎 他有如下山歌极吸引人的特点
+         * 1 Thymeleaf 在有网络和无网络的情况下 都可以运行
+         * 2 Thymeleaf 提供了Spring 标准语言和一个与springmvc完美集成的可选模块  可以快速的实现表单绑定 属性编辑器 国际化等功能
+         *
+         */
 
+        /**
+         * 邮件组件的相关开发
+         * 在编写邮件相关开发之前 我们先搞清楚电子邮件是如何在网上运作的 假设你要给远方的一个人 发邮件 步骤
+         * 写好信装进信封 --> 写好地址 贴上邮票 --> 找邮局 发信  --> 然后信件就会从就近的小邮局转运到大邮局 在从大邮局发送到其他城市 最后发送到目的地的某个邮局 期间邮件的发送路线你不需要关心
+         * 然后信件就会投递到你朋友的邮箱里 之后就可以读取邮件了
+         *
+         * 电子邮箱 跟上述步骤一样
+         * 假设我们自己的电子邮箱是 me@163.com 对方的电子邮箱地址是friend@163.com  现在我们用Outlook 或者 Foxmail 之类的
+         * 软件写好邮件 填上对方的邮件地址点发送  电子邮件就发出去了  这些电子邮件软件被称为 MUA mail user agent 邮件用户代理
+         *
+         * Email 从MUA 发出去之后 不是直接到达对方的电脑 而是发送到 MTA mailTransferAgent--邮件传输代理 特就是那些 Email 服务提供商
+         * 比如 网易 新浪  中间的过程可能还会经过别的 MTA  但是我们不关心具体的路线 我们只关心速度
+         *
+         * 网易（由于我们发送的是新浪的后缀名）最终会把Email 投递到邮件的最终目的地 MDA Mail Delivery Agent -- 邮件投递代理
+         * Email 到达 MDA 后 就静静的躺在新浪的某个服务器上 存放在某个文件或特殊的数据库里 我们将这个长期保存邮件的地方
+         * 称之为 电子邮箱
+         *
+         * Email 不会直接到达对方的电脑 因为对方的电脑不一定开机 开机也不一定联网 对方要取到电子邮件 必须通过MUA 从 MDA 上
+         * 把邮件取到自己的电脑上
+         * 所以 一封电子邮件的旅程就是：
+         * 发件人 --> MUA --> MTA（若干个） -- MDA <-- MUA 收件人
+         * 所以 有了上述的基本概念 要编写程序来发送和接收邮件 本质上就是
+         *      1 编写 MUA 把邮件 发送到 MTA
+         *      2 编写 MUA 从MDA 上收邮件
+         * 那么 发邮件是 MUA 和 MTA 使用的协议就是 SMTP Simple Mail Transfer Protocol 后面的MTA 到另一个MTA
+         * 也是用SMTP协议
+         * 那么收邮件时 MUA 和MDA 使用的协议有两种 POP IMAP
+         * 最后特别注意，目前大多数邮件服务商都需要手动打开SMTP发信和POP收信的功能，否则只允许在网页登录
+         */
 
-
-
-
-
-      /*  ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        /*  ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         IAccountService accountService =(IAccountService) ac.getBean("accountService");
         accountService.saveAccount();*/
 
@@ -176,5 +206,7 @@ public class Client {
         Account pojo = (Account)annotationConfigApplicationContext.getBean("pojo");
         IAccountService accountService = (IAccountService)annotationConfigApplicationContext.getBean("accountService");
         accountService.saveAccount(pojo);
+
+
     }
 }
