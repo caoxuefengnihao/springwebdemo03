@@ -5,8 +5,11 @@ import cn.config.SpringConfiguration;
 import cn.pojo.Account;
 import cn.service.IAccountService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 public class Client {
+
 
     public static void main(String[] args) {
         /**
@@ -207,6 +210,12 @@ public class Client {
         IAccountService accountService = (IAccountService)annotationConfigApplicationContext.getBean("accountService");
         accountService.saveAccount(pojo);
 
-
+        JavaMailSenderImpl javaMailSenderImpl = (JavaMailSenderImpl)annotationConfigApplicationContext.getBean("JavaMailSenderImpl");
+        SimpleMailMessage message = new SimpleMailMessage(); // 创建消息对象
+        message.setSubject("标题"); // 标题
+        message.setText("正文"); // 只支持文本, 不支持html
+        message.setTo("1394269623@qq.com"); // 收件人
+        message.setFrom("15904920415@163.com"); // 发件人
+        javaMailSenderImpl.send(message); // 发送
     }
 }

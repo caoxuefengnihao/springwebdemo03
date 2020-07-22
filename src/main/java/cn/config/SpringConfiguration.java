@@ -19,15 +19,18 @@ import java.util.Properties;
 @PropertySource({"classpath:mail.properties"})
 public class SpringConfiguration {
 
+    @Value("${mail.smtp.username}")
     String username;
+    @Value("${mail.smtp.password}")
     String password;
+    @Value("${mail.smtp.host}")
     String host;
-
-
-
-
-
-
+    @Value("${mail.smtp.defaultEncoding}")
+    String defaultEncoding;
+    @Value("${mail.smtp.auth}")
+    String auth;
+    @Value("${mail.smtp.ssl.enable}")
+    String sslEnable;
     /**
      * 在纯注解开发中 SqlSessionFactoryBean 这个类就相当于 mybatis的全局配置文件 在这里 配置一些mybatis 全局的一些配置 如给设置别名什么的
      * 通过SqlSessionFactoryBean初始化SqlSessionFactor
@@ -50,13 +53,13 @@ public class SpringConfiguration {
     @Bean("JavaMailSenderImpl")
     public JavaMailSenderImpl createMail(){
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-        javaMailSender.setHost("smtp.163.com");
-        javaMailSender.setUsername("15904920415@163.com");
-        javaMailSender.setPassword("cxf19940930cxf");
-        javaMailSender.setDefaultEncoding("utf-8");
+        javaMailSender.setHost(host);
+        javaMailSender.setUsername(username);
+        javaMailSender.setPassword(password);
+        javaMailSender.setDefaultEncoding(defaultEncoding);
         Properties properties = new Properties();
-        properties.setProperty("mail.smtp.auth","true");
-        properties.setProperty("mail.smtp.ssl.enable","true");
+        properties.setProperty("mail.smtp.auth",auth);
+        properties.setProperty("mail.smtp.ssl.enable",sslEnable);
         javaMailSender.setJavaMailProperties(properties);
         return javaMailSender;
     }
