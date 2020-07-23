@@ -248,6 +248,13 @@ public class Client {
         IAccountService accountService = (IAccountService)annotationConfigApplicationContext.getBean("accountService");
         accountService.saveAccount(pojo);
 
+
+
+        /**
+         * JavaMailSenderImpl支持MimeMessages和SimpleMailMessages。
+         * MimeMessages为复杂邮件模板，支持文本、附件、html、图片等。
+         * SimpleMailMessages实现了MimeMessageHelper，为普通邮件模板，支持文本
+         */
         JavaMailSenderImpl javaMailSenderImpl = (JavaMailSenderImpl)annotationConfigApplicationContext.getBean("JavaMailSenderImpl");
         SimpleMailMessage message = new SimpleMailMessage(); // 创建消息对象
         message.setSubject("标题"); // 标题
