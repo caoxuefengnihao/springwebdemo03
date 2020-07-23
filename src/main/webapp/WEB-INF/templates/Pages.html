@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+
+
+<a th:href="@{/handler/show40.do?currentPage=0}">首页</a>
+<a th:href="@{/handler/show40.do?currentPage=${p.getCurrentPage()}-1}">上一页</a>
+<a th:href="@{/handler/show40.do?currentPage=${p.getCurrentPage()}+1}">下一页</a>
+<a th:href="@{/handler/show40.do?currentPage=${p.getTotalPage()}-1}">尾页</a>
+<table>
+    <th>学生</th>
+    <tr th:each="pp:${p.getList()}">
+        <td th:text="${pp}"></td>
+    </tr>
+</table>
+
+
+</body>
+</html>

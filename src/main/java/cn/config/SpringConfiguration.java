@@ -8,6 +8,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.templatemode.TemplateMode;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -63,4 +66,30 @@ public class SpringConfiguration {
         javaMailSender.setJavaMailProperties(properties);
         return javaMailSender;
     }
+
+    /**
+     * spring 整合 Thymeleaf
+     *
+     */
+    @Bean("SpringResourceTemplateResolver")
+    public SpringResourceTemplateResolver templateResolver(){
+        SpringResourceTemplateResolver templateResolver  = new SpringResourceTemplateResolver();
+        templateResolver.setCacheable(false);
+        templateResolver.setPrefix("/WEB-INF/templates/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCharacterEncoding("utf-8");
+        return templateResolver;
+    }
+
+    @Bean("SpringTemplateEngine")
+    public SpringTemplateEngine templateEngine(){
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver());
+        templateEngine.setEnableSpringELCompiler(true);
+        return templateEngine;
+    }
+
+
+
 }

@@ -19,7 +19,19 @@
         <property name="prefix" value="/WEB-INF/views/"></property>
         <!--配置视图解析器的后缀：找以.jsp为后缀的视图 -->
         <property name="suffix" value=".jsp"></property>
+        <property name="order" value="2" />
     </bean>
+
+
+
+    <!-- Thymeleaf 的视图解析器 -->
+    <bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="SpringTemplateEngine" />
+        <!-- NOTE 'order' and 'viewNames' are optional -->
+        <property name="characterEncoding" value="utf-8" />
+        <property name="order" value="1" />
+    </bean>
+
 
     <!--配置注解驱动--><!--解决中文乱码问题-->
     <mvc:annotation-driven>

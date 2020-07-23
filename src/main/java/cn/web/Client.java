@@ -49,6 +49,8 @@ public class Client {
          *  作用：用于指定spring在初始化容器是要扫描的包 作用和在spring的xml配置文件中的 <context:component-scan base-package="cn.itcast"></context:component-scan>一样
          * @Bean(name = "给当前的@Bean注解方法创建的对象指定一个名称 即bean的id")
          * 就是有一个方法 这个注解就是给这个方法创建一个对象
+         * 也可以用在@Component注解的类里。添加的bean的id为方法名
+         * 默认情况下bean的名称和方法名称相同，你也可以使用name属性来指定
          * @PropertySource
          * 作用：用于加载.properties文件中的配置 例如我们配置数据源时，可以把链接数据库的信息写到properties文件
          * 中 就可以使用此注解指定properties配指文件的位置
@@ -168,6 +170,42 @@ public class Client {
          * Thymeleaf 相关简介  他可以完全替代jsp 相较于其他的模板引擎 他有如下山歌极吸引人的特点
          * 1 Thymeleaf 在有网络和无网络的情况下 都可以运行
          * 2 Thymeleaf 提供了Spring 标准语言和一个与springmvc完美集成的可选模块  可以快速的实现表单绑定 属性编辑器 国际化等功能
+         *
+         * Thymeleaf 与 spring的相关集成
+         * Thymeleaf 提供了一组spring 集成 可以使用springmvc完全替代 jsp的功能
+         *
+         *
+         * spring的 相关代码
+         * @Bean
+         * public SpringResourceTemplateResolver templateResolver(){
+         *     // SpringResourceTemplateResolver automatically integrates with Spring's own
+         *     // resource resolution infrastructure, which is highly recommended.
+         *     SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+         *     templateResolver.setApplicationContext(this.applicationContext);
+         *     templateResolver.setPrefix("/WEB-INF/templates/");
+         *     templateResolver.setSuffix(".html");
+         *     // HTML is the default value, added here for the sake of clarity.
+         *     templateResolver.setTemplateMode(TemplateMode.HTML);
+         *     // Template cache is true by default. Set to false if you want
+         *     // templates to be automatically updated when modified.
+         *     templateResolver.setCacheable(true);
+         *     return templateResolver;
+         * }
+         *
+         * @Bean
+         * public SpringTemplateEngine templateEngine(){
+         *     // SpringTemplateEngine automatically applies SpringStandardDialect and
+         *     // enables Spring's own MessageSource message resolution mechanisms.
+         *     SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+         *     templateEngine.setTemplateResolver(templateResolver());
+         *     // Enabling the SpringEL compiler with Spring 4.2.4 or newer can
+         *     // speed up execution in most scenarios, but might be incompatible
+         *     // with specific cases when expressions in one template are reused
+         *     // across different data types, so this flag is "false" by default
+         *     // for safer backwards compatibility.
+         *     templateEngine.setEnableSpringELCompiler(true);
+         *     return templateEngine;
+         * }
          *
          */
 

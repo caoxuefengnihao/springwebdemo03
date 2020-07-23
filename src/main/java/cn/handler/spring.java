@@ -402,4 +402,11 @@ public class spring {
         modelAndView.addObject("p",pages);
         return modelAndView;
     }
+
+    @RequestMapping("show41")
+    public ModelAndView test41(){
+        ModelAndView modelAndView = new ModelAndView("he");
+        modelAndView.addObject("msg","Thymeleaf 与 spring 整合 成功");
+        return modelAndView;
+    }
 }
