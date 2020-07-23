@@ -27,7 +27,7 @@ public class MyInterceptor1 implements HandlerInterceptor {
             return true;
         }else{
 
-            if(request.getRequestURI().equals("/handler/show3.do")){
+            if(request.getRequestURI().contains("handler/show3.do")){
                 return true;
             }else{
                 System.out.println(request.getRequestURI());

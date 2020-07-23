@@ -116,7 +116,7 @@ public class spring {
             System.out.println(session.getId());
             session.setAttribute("username",username);
             session.setAttribute("password",passwrod);
-            resp.sendRedirect("/handler/show39.do");
+            resp.sendRedirect("show39.do");
         }
 
         Cookie[] cookies = req.getCookies();
