@@ -30,6 +30,11 @@ public class JdbcConfiguration {
     }
 
 
+    /**
+     *
+     * 配置
+     * @return
+     */
     @Bean("dataSource")
     public DataSource createDataSource(){
         DruidDataSource druidDataSource = new DruidDataSource();
@@ -40,7 +45,4 @@ public class JdbcConfiguration {
         druidDataSource.setPassword(password);
         return druidDataSource;
     }
-
-
-
 }

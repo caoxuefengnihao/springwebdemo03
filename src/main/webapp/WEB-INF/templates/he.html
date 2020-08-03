@@ -6,5 +6,10 @@
 </head>
 <body>
 <h1 th:text="${msg}"></h1>
+
+<h1 th:each="p:${msg}">
+    <p th:text="${p}"></p>
+</h1>
+
 </body>
 </html>

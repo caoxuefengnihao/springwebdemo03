@@ -1,6 +1,7 @@
 package cn.handler;
 
 
+import cn.JavaBean.HiveBean;
 import cn.JavaBean.User;
 import cn.pojo.Pages;
 import cn.pojo.stu;
@@ -407,6 +408,15 @@ public class spring {
     public ModelAndView test41(){
         ModelAndView modelAndView = new ModelAndView("he");
         modelAndView.addObject("msg","Thymeleaf 与 spring 整合 成功");
+        return modelAndView;
+    }
+
+
+    @RequestMapping("show42")
+    public ModelAndView test42(){
+        List<HiveBean> strings = hiveSer.queryHive();
+        ModelAndView modelAndView = new ModelAndView("he");
+        modelAndView.addObject("msg",strings);
         return modelAndView;
     }
 }

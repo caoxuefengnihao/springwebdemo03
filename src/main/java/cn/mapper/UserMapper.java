@@ -1,5 +1,6 @@
 package cn.mapper;
 
+import cn.JavaBean.HiveBean;
 import cn.JavaBean.User;
 import cn.pojo.stu;
 import org.apache.ibatis.annotations.Param;
@@ -52,6 +53,7 @@ public interface UserMapper {
 
     int queryTotalCount(@Param("tableName") String tableName);
     List<stu> queryPagesList(@Param("currentPage") int currentPage,@Param("pageSize") int pageSize);
+    List<HiveBean> queryHIve();
 
 
 

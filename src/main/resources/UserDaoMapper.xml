@@ -76,6 +76,11 @@
         select * from stu limit #{currentPage},#{pageSize};
     </select>
 
+    <select id = "queryHIve" resultType="cn.JavaBean.HiveBean">
+        select dt as dt,referer as referer from test.test01
+    </select>
+
+
 
 </mapper>
 
